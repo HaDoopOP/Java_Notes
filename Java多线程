@@ -1,0 +1,35 @@
+##Notes from watching https://www.udemy.com/efficient-java-multithreading-with-executors
+
+###创建thread方法
+    ~~~~~~创建一个class，extends Thread~~~~~~
+    
+    Class FirstTask extends Thread {
+      
+      //Use for later to create thread ID
+      private static int count = 0;
+      private int id;
+      
+      @Override            //Override run 方法
+      public void run() {
+        for (int i = 10; i>0; i--) {
+          Sysout.p( "<" + id + ">");
+          
+          try {
+              TimeUnit.MILLISECONDS.sleep(200);
+              } catch (InterruptedException e) {
+                  e.printStackTrace();
+                  }
+              }
+       } //结束run方法
+       
+       public FirstTask() {
+          this.id = ++count;                 ######trick, 每次生成新Thread，都会自动执行run方法。并且每实现一个这个
+          this.start();                       ######   FirstTask class实例，线程id都会自动increment by 1
+        }
+        
+  }
+  
+  
+  
+  
+        
