@@ -27,7 +27,11 @@
           this.start();                       ######   FirstTask class实例，线程id都会自动increment by 1
         }
         
+        
+       <!-- 如果上面那个每次new instance自动run不合适，随时改回去。比如Thread t = new FirstTask();
+                                                            t.start();###  -->
   }
+  
   
   
   
