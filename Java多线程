@@ -38,6 +38,8 @@
   
   
     ~~~~~~~~~创建一个class implements Runnable~~~~~~~~~~~
+    Public Static void main下面
+    new FirstTask(); //不好，因为一旦启动不好操控
     
     Class FirstTask implements Runnable {       //由于没有继承Thread类而是仅仅实现了Runnable接口，所以Thread类下面的.start()那些不能用
                                                   //如果想用，就把这个直接转换回Thread类，如下
@@ -63,6 +65,10 @@
           <!--  this.start();     ##不能用了        -->
           new Thread(this).start();    <!--这样就可以了，转回Thread类了-->
         }
+        
+        
+        
+        <!--这种方法不好，因为一旦启动了，在main里面不能控制。如果我们不在乎可以这样走-->
   
   
         
