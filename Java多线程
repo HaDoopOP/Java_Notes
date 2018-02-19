@@ -2,6 +2,10 @@
 
 ###创建thread方法
     ~~~~~~创建一个class，extends Thread~~~~~~
+    Public static void main(String[] args) {
+    
+    }
+    
     
     Class FirstTask extends Thread {
       
@@ -33,7 +37,32 @@
   }
   
   
-  
+    ~~~~~~~~~创建一个class implements Runnable~~~~~~~~~~~
+    
+    Class FirstTask implements Runnable {       //由于没有继承Thread类而是仅仅实现了Runnable接口，所以Thread类下面的.start()那些不能用
+                                                  //如果想用，就把这个直接转换回Thread类，如下
+      //Use for later to create thread ID
+      private static int count = 0;
+      private int id;
+      
+      @Override            //Override run 方法
+      public void run() {
+        for (int i = 10; i>0; i--) {
+          Sysout.p( "<" + id + ">");
+          
+          try {
+              TimeUnit.MILLISECONDS.sleep(200);
+              } catch (InterruptedException e) {
+                  e.printStackTrace();
+                  }
+              }
+       } //结束run方法
+       
+       public FirstTask() {
+          this.id = ++count;                 
+          <!--  this.start();     ##不能用了        -->
+          new Thread(this).start();    <!--这样就可以了，转回Thread类了-->
+        }
   
   
         
