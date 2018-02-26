@@ -6,8 +6,10 @@ Stack: last in first out (LIFO)
 
 String pop()
 -----------------
-1. 因为pop要return出pop的obj，所以先存下来当前即将pop出的obj, String itemToPop = first.item;
+1. 因为pop要return出pop的obj，所以先存下来当前即将pop出的obj 
+   String itemToPop = first.item;
 2. first = first.next   //delete the first node
+3. return itemToPop
 
 void push()
 -------------------
@@ -32,3 +34,26 @@ fitst.item = '随便赋值' && first.next = oldFirst; 因为oldFirst存了之前
                      
                     ||
                     oldFirst 
+Implement时还可以加一个function，public boolean isEmpty() {return first == null ;}
+
+
+--------------------Implement with an Array--------------------
+push(): add new node at Array[N]
+pop():  remove item at Array[N-1]
+
+######用array的缺点：要先declare size#######
+private String[] s;
+private int N = 0;
+
+public boolean isEmpty() {return N ==0; }
+
+public String pop() {return Array[--N]; } 会造成loitering的缺点
+
+Holding a fererence to an obj when it is no longer needed, GC不会拿走。
+
+改成
+public String pop() {String item = Array[--N];
+                        Array[N] = null;
+                        return item;
+                        }
+                        
