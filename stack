@@ -1,0 +1,34 @@
+https://www.youtube.com/watch?v=TIC1gappbP8&list=PLxc4gS-_A5VDXUIOPkJkwQKYiT2T1t0I8&index=13
+
+
+Stack: last in first out (LIFO)
+可以用一个LinkedList去implement a stack, When we push or pop a node, we will do some operation at the first node;
+
+String pop()
+-----------------
+1. 因为pop要return出pop的obj，所以先存下来当前即将pop出的obj, String itemToPop = first.item;
+2. first = first.next   //delete the first node
+
+void push()
+-------------------
+Node oldFirst = first //生成一个指针，指向当前的first; 当前有两个指针指向first
+
+   first -\   
+          [1] -> [2] -> [3]
+oldFirst -/
+
+
+first = new Node() //new 一个新的node，拿first去指向。此时first指向了一个后面没有node的独一node
+
+
+   first -> [0]  
+          
+oldFirst -> [1] -> [2] -> [3]
+
+
+fitst.item = '随便赋值' && first.next = oldFirst; 因为oldFirst存了之前那一长串，所以first下一个指向oldFirst时，就和之前的连起来了。
+
+   first -> [0] -> [1] -> [2] -> [3]
+                     
+                    ||
+                    oldFirst 
