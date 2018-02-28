@@ -1,0 +1,103 @@
+1. 两者都implement的List interface，都实现了List没有实现的方法。
+
+##ArrayList是以数组的形式来实现的List，特性是利用index快速找到位置。若需要随机根据index访问数组数据，要用ArrayList。
+对增加删减慢因为要重新arrange数组。
+
+public class ArrayListDemo {  
+  
+    public static void main(String[] args) {  
+          
+        List<String> userlist = new ArrayList<String>();  
+        //添加几个dummy data
+        userlist.add("张三");  
+        userlist.add("李四");  
+        userlist.add("赵五");  
+        
+        System.out.println("使用普通for循环:");  
+        for(int i=0; i<userlist.size(); i++){  
+            System.out.print(userlist.get(i)+" ");  
+        }  
+        System.out.println();  
+        System.out.println();  
+        
+        
+        System.out.println("使用Iterator迭代器:");  
+        Iterator it = userlist.iterator();  
+        while(it.hasNext()){  
+            System.out.print(it.next()+" ");  
+        }  
+        System.out.println();  
+        System.out.println();  
+        
+        
+        System.out.println("使用增强for循环:");  
+          
+        for(String s : userlist){  
+            System.out.print(s+" ");  
+        }  
+    }  
+} 
+
+##LinkedList的addFirst，addLast，getFirst和removeFirst removeLast非常好用。在增加和删减上很快
+
+public class StringStack {  
+    private LinkedList<String> linkedList   
+    = new LinkedList<String>();  
+  
+    /** 
+     * 将元素加入LinkedList容器 
+     * (即插入到链表的第一个位置) 
+     */  
+    public void push(String name){  
+        linkedList.addFirst(name);  
+    }  
+    /** 
+     * 取出堆栈中最上面的元素 
+     * (即取出链表linkedList的第一个元素) 
+     * @return 
+     */  
+    public String getTop(){  
+        return linkedList.getFirst();  
+    }  
+    /** 
+     * 取出并删除最上面的元素 
+     * (即移出linkedList的第一个元素) 
+     * @return 
+     */  
+    public String pop(){  
+        return linkedList.removeFirst();  
+    }  
+    /** 
+     * 获取元素个数 
+     * @return 
+     */  
+    public int size(){  
+        return linkedList.size();  
+    }  
+      
+    /** 
+     * 判断堆栈是否为空 
+     * (即判断 linkedList是否为空) 
+     * @return 
+     */  
+    public boolean isEmpty(){  
+        return linkedList.isEmpty();  
+    }  
+    //测试  
+    public static void main(String[] args) {  
+        StringStack stack = new StringStack();  
+        stack.push("张三");  
+        stack.push("李四");  
+        stack.push("赵五");  
+        System.out.print("第一个元素是:\t");  
+        System.out.println(stack.getTop());  
+        System.out.println();  
+        System.out.println("全部元素:");  
+        while(!stack.isEmpty()){  
+            System.out.println("\t"+stack.pop());  
+        }  
+    }  
+}
+
+
+
