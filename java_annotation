@@ -99,7 +99,7 @@ public class Test {
 
 该注解代码如下 ⬇️⬇️⬇️⬇️⬇️
 @Target(ElementType.TYPE)
-@Retention(RetentionPolicy.RUNTIME)
+@Retention(RetentionPolicy.RUNTIME)       如果一个注解要在运行时被成功提取，那么 @Retention(RetentionPolicy.RUNTIME) 是必须的。
 public @interface TestAnnotation {
 
     public int id() default -1;
@@ -109,3 +109,4 @@ public @interface TestAnnotation {
 }
 
 
+http://blog.csdn.net/briblue/article/details/73824058
