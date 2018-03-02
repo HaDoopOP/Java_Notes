@@ -1,0 +1,40 @@
+分为动态代理和静态代理
+
+当处理动态代理情况的时候
+public static Object newProxyInstance(ClassLoader loader,
+                                          Class<?>[] interfaces,
+                                          InvocationHandler h)
+                                          
+InvocationHandler 是一个接口，官方文档解释说，每个代理的实例都有一个与之关联的 InvocationHandler 实现类，
+如果代理的方法被调用，那么代理便会通知和转发给内部的 InvocationHandler 实现类，由它决定处理。
+
+
+public class Test {
+
+    public static void main(String[] args) {
+        // TODO Auto-generated method stub
+
+        MaotaiJiu maotaijiu = new MaotaiJiu();           //茅台和五粮液都implement了 酒 这个interface
+                                                              //这个interface里只写了“我卖**种酒”
+        Wuliangye wu = new Wuliangye();
+
+        InvocationHandler jingxiao1 = new GuitaiA(maotaijiu);
+        InvocationHandler jingxiao2 = new GuitaiA(wu);                //都用InvocationHandler类去handle
+
+        SellWine dynamicProxy = (SellWine) Proxy.newProxyInstance(MaotaiJiu.class.getClassLoader(),
+                MaotaiJiu.class.getInterfaces(), jingxiao1);
+        SellWine dynamicProxy1 = (SellWine) Proxy.newProxyInstance(MaotaiJiu.class.getClassLoader(),
+                MaotaiJiu.class.getInterfaces(), jingxiao2);
+
+        dynamicProxy.mainJiu();
+
+        dynamicProxy1.mainJiu();
+
+    }
+
+}
+
+代理模式本质上的目的是为了增强现有代码的功能。
+
+
+摘自 http://blog.csdn.net/briblue/article/details/73928350
