@@ -1,0 +1,111 @@
+1. Java annotation用于为 Java 代码提供meta data。作为meta data，注解doesn't affect the code when running.
+2. Meta annotation is the annotation for annotations, @Retention、@Documented、@Target、@Inherited、@Repeatable
+
+##Retention 保留
+@Retention直接作用于某一个annotation上
+
+@Retention(RetentionPolicy.RUNTIME)
+public @interface TestAnnotation {
+}
+
+把@Retention贴在了自己定义的@interface annotation上面，并在后面的（）里写明了这个annotation的存活周期
+
+
+##Documented
+meta annotation之一，作用是能够将注解中的元素包含到 Javadoc 中去
+
+##Target
+限制了被贴上的注解运用的地方。
+当一个注解被 @Target 注解时，这个注解就被限定了运用的场景。
+
+ElementType.LOCAL_VARIABLE 可以给局部变量进行注解
+ElementType.METHOD 可以给方法进行注解
+ElementType.PACKAGE 可以给一个包进行注解
+
+@Target（ElementType.LOCAL_VARIABLE) {
+}
+
+##Inherited
+如果一个超类被 @Inherited 注解过的注解进行注解的话，那么如果它的子类没有被任何注解应用的话，那么这个子类就继承了超类的注解。 
+
+@Inherited
+@Retention(RetentionPolicy.RUNTIME)
+@interface Test {}
+
+
+@Test
+public class A {}
+
+
+public class B extends A {}
+
+在这种情况贴在A上面的@Test标签，会被B继承走。因为B上面没有贴东西
+
+
+##Repeatable
+
+@interface Persons {             //又一个annotation叫做Persons
+    Person[]  value();
+}
+
+
+//@Repeatable 注解了 Person。而 @Repeatable 后面括号中的类相当于一个容器注解。
+//容器注解就是用来存放其它注解的地方。它本身也是一个注解。
+
+@Repeatable(Persons.class)         //允许重复贴标签
+@interface Person{
+    String role default "";
+}
+
+
+@Person(role="artist")
+@Person(role="coder")             //给超人class赋予这个Person标签，里面存了三个value
+@Person(role="PM")
+public class SuperMan{
+
+}
+
+
+#########之前贴的这些annotation，都可以在之后被拿下来检验##########
+工作就是检阅这些标签内容。 形象的比喻就是你把这些注解标签在合适的时候撕下来，然后检阅上面的内容信息。
+
+注解通过反射获取。首先可以通过 Class 对象的 isAnnotationPresent() 方法判断它是否应用了某个注解
+public boolean isAnnotationPresent(Class<? extends Annotation> annotationClass) {}；
+
+
+然后通过 getAnnotation() 方法来获取 Annotation 全部的对象。
+public Annotation[] getAnnotations() {}
+
+或者指定返还哪一种注解
+public <A extends Annotation> A getAnnotation(Class<A> annotationClass) {}
+
+@TestAnnotation()
+public class Test {
+
+    public static void main(String[] args) {
+
+        boolean hasAnnotation = Test.class.isAnnotationPresent(TestAnnotation.class);  //检测Test Class是否被贴上了标签
+
+        if ( hasAnnotation ) {
+            TestAnnotation testAnnotation = Test.class.getAnnotation(TestAnnotation.class);
+
+            System.out.println("id:"+testAnnotation.id());
+            System.out.println("msg:"+testAnnotation.msg());
+        }
+
+    }
+
+}
+
+该注解代码如下 ⬇️⬇️⬇️⬇️⬇️
+@Target(ElementType.TYPE)
+@Retention(RetentionPolicy.RUNTIME)
+public @interface TestAnnotation {
+
+    public int id() default -1;
+
+    public String msg() default "Hi";
+
+}
+
+
