@@ -1,0 +1,19 @@
+======A======
+
+一个program，不需要把所有的data都放进memory里。
+
+1. Many code for handling unusual erros or conditions //not often show
+2. Certain program routines or features are rarely used //not often
+3. The same library code used by many programs //share with each other
+4. Arrays, lists and tables allocated but not used. //allocate space, but most are not in used
+
+----------
+sum(1,4) better memory utilization  确保放进memory的，使用率（被access的次序）增加。
+
+Virtual memory - separation of user logical memory from physical memory; 会让程序跑更快
+若没有这个virtual memory，会花很久把这个程序全部load进memory。load per page（4k） Thus very fast，especially刚开始的启动程序时间。
+physical 空间很小， logical 空间 space可以比它大很多。让physical resource 不再受限制。
+
+memory管理分paging 和 segmentation，paging 更常用。因为segmentation大小不固定
+，找到那些best fit 空间不容易。 paging 是 fixed size，找到空位置是o1，只要有位置就可以用。segmentation是o（n）；
+
