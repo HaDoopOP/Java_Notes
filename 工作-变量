@@ -52,3 +52,5 @@ char a = 2 byte
 int  1 = 4 byte
 
 system.out.print("a" + 1)  因为int占的比重大。所以会打印出98
+
+system.out.printl(char)('a' + 1)  打印出b
