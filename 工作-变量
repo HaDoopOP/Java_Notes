@@ -25,3 +25,30 @@ x = 10;    //Based on the pre-allocated memory space;
 
 long a = 4l; (注意这个l）
 
+-------
+
+##变量的转换
+
+～～～exp 1～～～
+
+byte b = 3;   在内存中，一个byte （系统有一个判断，3是否能用byte存下来）
+b = b + 2;    在内存中，2是int，4byte  （系统会报错，怕存不下来）但是b本身是byte，int提升会报错❌❌❌
+1byte + 4 byte
+
+   强制转换
+b = byte(b+2) 这样就成了1byte + 1byte （不会报错，因为知道可以存下来）✅✅✅
+
+不同数据类型之间，不能直接运算。要有自动类型提升这个操作。原则是以大的byte类型为准，向大的类型转换。
+
+
+～～～exp 2～～～
+美国人用二进制来表示生活中的东西，即abcd都用二进制来表达。
+ASCII
+97 a
+98 b
+99 c
+
+char a = 2 byte
+int  1 = 4 byte
+
+system.out.print("a" + 1)  因为int占的比重大。所以会打印出98
