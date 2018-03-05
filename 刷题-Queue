@@ -1,0 +1,49 @@
+常见的Queue api
+支持 void enqueue(String item); String dequeue(); boolean isEmpty();
+
+做queue的LinkedList，要两个pointer。
+dequeue 同等 stack的pop；
+
+enqueue的时候:  
+
+Node oldLast = last; //创建一个pointer，指向当时的最后一个，用以记录插入前的Last Node
+
+Node last = new Node();
+last.item = "新的最后一个“；      //创建了准备进入队列的Node
+last.next = null;
+
+oldLast.next = last; //进入队列
+
+------------------
+
+public class LinkedQueueOfStrings {
+  private Node first,last;
+  
+  private class Node {
+      item xxxxxxx;
+      next pointer;
+      }
+  
+  public boolean isEmpty() {return first == null} //如果一个node也没有了，即为空queue}
+  
+  public void enqueue(String xxxxxxxx) {
+  
+      Node oldLast = last;
+      last = new Node();
+      last.item = "xxxxxxxx";
+      last.next = null;
+      if(isEmpty())               //如果当前是空的First指针和Last指针指向同一个元素
+        first = last;
+      else
+        oldLast.next = last;
+        
+        }
+  public String dequeue() {
+    String item = first.item;
+    first = first.next;
+    
+    if(isEmpty()) last = null;
+    return item;
+    
+    }
+ }
