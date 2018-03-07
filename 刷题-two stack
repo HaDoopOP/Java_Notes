@@ -1,0 +1,21 @@
+public class Evaluate {
+  public static void main(String[] args) {
+    
+    Stack<String> ops = new Stack<String>();          //Stack for 运算符
+    Stack<Double> vals = new Stack<Double>();       //Stack for input values
+    
+    while (!StdIn.isEmpty()) {
+      String s = StdIn.readString();
+      if (s.equals("(") 不干事；              //s 表示扔进来一串String从左向右读
+      else if (s.equals("+") ops.push(s);     //+ 就在 运算符stack上
+      else if (s.equals("*") ops.push(s);     //还有*
+      else if (s.equals("(")) {         //当遇到）时
+        String op = ops.pop();
+        if (op.equals("+") vals.push(vals.pop() + val.pop());            运算符stack pop出一个，input values pop出两个做运算
+        else if (op.equals("*") vals.push(vals.pop() * vals.pop());         运算完了再push back回 input values stack上
+        }
+      else vals.push(Double.parseDouble(s));       //不是括号，也不是运算符，默认为 input values。放到input value stack上
+    }
+    sout.(vals.pop());
+  }
+}
