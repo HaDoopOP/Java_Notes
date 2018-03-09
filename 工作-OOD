@@ -1,0 +1,84 @@
+Factory Pattern
+创建对象时，不会对客户端暴露创建逻辑。通过使用一个共同的借口来指向新的创建对象。
+
+ruboob上给了一个例子非常有意思
+
+<Interface>
+public interface Shape {
+  void draw();
+}
+-----------------------------------------------------------------
+之后有若干个形状的class，去implement shape这个interface
+public class Rectangle implements Shape {
+
+   @Override
+   public void draw() {
+      System.out.println("Inside Rectangle::draw() method.");
+   }
+}
+-----------------------------------------------------------------
+public class Square implements Shape {
+
+   @Override
+   public void draw() {
+      System.out.println("Inside Square::draw() method.");
+   }
+}
+-----------------------------------------------------------------
+public class Circle implements Shape {
+
+   @Override
+   public void draw() {
+      System.out.println("Inside Circle::draw() method.");
+   }
+}
+-----------------------------------------------------------------
+
+在以上三个可以实现shape interface 的class的基础上，我们创建了shape factory这个class
+public class ShapeFactory {
+    
+   //使用 getShape 方法获取形状类型的对象
+   public Shape getShape(String shapeType){  ⚠️返还类型是shape 这是为什么要定义一个interface的原因⚠️
+      if(shapeType == null){
+         return null;
+      }        
+      if(shapeType.equalsIgnoreCase("CIRCLE")){
+         return new Circle();
+      } else if(shapeType.equalsIgnoreCase("RECTANGLE")){
+         return new Rectangle();
+      } else if(shapeType.equalsIgnoreCase("SQUARE")){
+         return new Square();
+      }
+      return null;
+   }
+}
+
+这样确保在main函数中，实例化任何一个图形obj 都可以借助工厂来实现。把new instance给封装起来了。
+缺点是如果需要调用 上文中的circle，长方形，三角形，需要实例化三个shapeFactory⚠️⚠️⚠️。
+
+优化如下
+public class ShapeFactory {
+    public static <T> T getClass(Class<? extends T> clazz) {     //定义一个static的method
+        T obj = null;
+
+        try {
+            obj = (T) Class.forName(clazz.getName()).newInstance();
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (InstantiationException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+
+        return obj;
+    }
+}
+
+Rectangle rect = ShapeFactory.getClass(Rectangle.class);
+rect.draw();
+
+Shape square = ShapeFactory.getClass(Square.class);
+square.draw();
+
+好处是支持多态
