@@ -1,0 +1,12 @@
+FaceBook 用 Factory pattern
+Linkedin 用 denpendency Injection 和 Factory Pattern
+Google 用 dependency Injection
+
+config file里的东西就是server初始化的时候读一次
+根据这里面的参数来生成具体的object，放在一个bean provider里面，也就是 < 名字 -> object >
+然后做dependency injection的时候，根据@Inject和@Named，从bean provider里面找出object 匹配到field
+
+好处是When using a factory your code is still actually responsible for creating objects. 
+By DI you outsource that responsibility to another class or a framework, which is separate from your code.
+
+假想是一套默认的格式，通过换config文件，来在各个机器上迁移。
