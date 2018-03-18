@@ -12,13 +12,52 @@ public class Singleton{
   private Singleton(){
    //外界不能call了，故不会被创建多个instance
    //通过将构造方法私有化
+   //❓既然constructor是private，该如何实例化呢
   }
   
+  //2。 创建类的唯一实例，并提供给外部
+  private static Singleton instance = new Singleton();                  ----------outside class-------------
+  //本应该在外部可以 ---------------------------------------------------》Singleton s1 = Singleton.instance;
+  //本应该在外部可以 ---------------------------------------------------》Singleton s2 = Singleton.instance;
+  因为是static，故可以保证是单个实例。但是best practice是不允许外部访问内部field，故要加一个function
   
+  public static Singleton getInstance() {
+  return instance;                       //通过封装，给了外界一个借口。
+  }
 }
 
 public class Main {
   public static oid main(String[] args) {
   new Singleton(); //create an instance
   }
-{
+}
+
+⚠️⚠️⚠️ 
+⚠️⚠️⚠️ 叫饿汉是因为，由于是static function，当object 被叫的时候，就已经出来了。
+⚠️⚠️⚠️ 出来太快类，没吃饱
+
+
+2. 懒汉模式
+
+public class Singleton2 {
+
+  //1. 将结构方式私有化，不允许外边直接访问创建对象
+  private Singleton2() {
+  }
+  
+  //声明类的唯一实例，使用private static
+  private static Singleton2 instance;            //和之前的区别是，只是声明，并没有实例化
+  
+  //3. 提供一个用于获取实例的方法，使用public static 
+  public static Singleton2 getInstance() {
+    if(instance == null) {
+      instance = new Singleton2();
+    }
+    return instance;
+  }
+}
+
+
+
+饿汉特点是： 加载类的时候慢，因为加载的时候已经有了创建好了static instance; 好处是获取对象的时候快，因为已经创建好了。⚠️线程安全
+懒汉特点是:  加载类的时候快，因为当时没有创建static instance, 坏处是第一次运行的时候，获取慢。           ⚠️ 线程不安全
